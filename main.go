@@ -3,7 +3,6 @@ package main // Define the main package
 import (
 	"bytes"         // Provides bytes support
 	"encoding/json" // Provides json formatting functions
-	// "fmt"           // Provides formatted I/O functions
 	"io"            // Provides basic interfaces to I/O primitives
 	"log"           // Provides logging functions
 	"net/http"      // Provides HTTP client and server implementations
@@ -47,7 +46,12 @@ func main() {
 	downloadURLSlice = removeDuplicatesFromSlice(downloadURLSlice)
 	// Get all the values.
 	for _, urls := range downloadURLSlice {
-		finalURL := "https://cropscience.bayer.co.uk" + urls
+		// Create a var
+		var finalURL string
+		// Check if it has a prefix and if not than append it or else just use it like it is.
+		if !strings.HasPrefix(urls, "https://cropscience.bayer.co.uk") {
+			finalURL = "https://cropscience.bayer.co.uk" + urls
+		}
 		// Check if the url is valid.
 		if isUrlValid(finalURL) {
 			// Download the pdf.
